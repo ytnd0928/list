@@ -1,23 +1,38 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+
 import './App.css';
+import { Form } from './Form'
+import { List } from './List'
+import { PEOPLES } from './const/People';
+
+
+
+
 
 function App() {
+
+  const [tab,setTab] = useState('form');
+  const [peoples, setPeoples] = useState(PEOPLES);
+  const addPeople = (people) => {
+    console.log(people);
+    setPeoples([...peoples, people])
+    setTab('form')
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div>
+      <header>
+      <ul>
+      <li onClick ={() => setTab('form')}>入力フォーム</li>
+      <li onClick ={() => setTab('list')}>名簿</li>
+      </ul>
       </header>
+      <hr />
+
+      {
+        tab === 'form' ?  <Form onAddPeople　=　{addPeople} /> : <List peoples={peoples} />
+      }
     </div>
   );
 }
