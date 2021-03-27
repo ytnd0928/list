@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, } from 'react';
 
 import './App.css';
 import { Form } from './Form'
@@ -12,13 +12,23 @@ import { PEOPLES } from './const/People';
 function App() {
 
   const [tab,setTab] = useState('form');
-  const [peoples, setPeoples] = useState(PEOPLES);
+  const [peoples, setPeoples] = useState([]);
+
+  useEffect(() => {
+    const savedPeopleText = localStorage["peoples"]
+    if (savedPeopleText) {
+      const peoples = JSON.parse(savedPeopleText)
+      setPeoples(peoples)
+    }
+  }, [])
+
   const addPeople = (people) => {
     console.log(people);
-    setPeoples([...peoples, people])
+    const newPeoples = [...peoples, people]
+    setPeoples(newPeoples)
+    localStorage["peoples"] = JSON.stringify(newPeoples)
     setTab('form')
   }
-
 
   return (
     <div>

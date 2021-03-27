@@ -6,21 +6,28 @@ export const Form =({ onAddPeople }) => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    onAddPeople(name +　number 　+ 　old);
+    /*
+      name: "Michael"
+      number: "123-4567"
+      old: "28"
 
+      now: "Michael123-456728"
+      ideal: "Michael 123-4567 28"
+     */
+    // onAddPeople(name + "," + number + "," + old);
+    onAddPeople(`${name},${number},${old}`)
+    setName('')
+    setNumber('')
+    setOld('')
     console.log('submitForm({text})');
-}
+  }
 
-const optionList = []
-    for (let i=0; i<=100; i++) {
-      optionList.push(<option key="{i}" >{i}</option>)
-    }
+  const optionList = []
+  for (let i=0; i<=100; i++) {
+    optionList.push(<option key="{i}" >{i}</option>)
+  }
 
-
-
-
-
- return(
+  return (
     <div>
     <h1>入力フォーム</h1>
      <form onSubmit={submitForm}>
